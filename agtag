@@ -1,0 +1,53 @@
+#!/bin/sh
+
+# Use `ag` to generate tags (as in `ctags`) for a given project, or to look up
+# a specific tag.
+#
+#    # Generate a tags index
+#    $ agtag > tags
+#
+#    # Crawl the project for a single term
+#    $ agtag some_function_name
+#
+# `ag` is fed regular expressions aimed at extracting anything that should
+# constitute a "public" tags, such as JavaScript functions with the `export`
+# keyword, or PHP classes.
+
+generate_tags() {
+	find_tag '\w+' "$@" \
+		| awk -F: 'BEGIN{OFS="\t"} {print $3, $1, $2}' \
+		| sort
+}
+
+find_tag() {
+	tag="$1"; shift
+	ag -o --noheading --nobreak --js --ts \
+		'((^export (default )?((function |class |const )|{ *(\w+, )*))|(@typedef {[^}(]+} ))\K'"$tag"'\b' \
+		"$@"
+	ag -o --noheading --nobreak --php \
+		'^\s*(function |class )\K'"$tag"'\b' \
+		"$@"
+}
+
+# shellcheck disable=2048 disable=2086
+if  ! args=$(getopt t: $*) ; then
+	echo "usage: $(basename $0) [path ...]"
+	echo "       $(basename $0) -f term [path ...]"
+	exit 2
+fi
+# shellcheck disable=2086
+set -- $args
+for i; do
+	case "$i" in
+		-t)
+			term="$2"; shift;
+			shift;;
+		--)
+			shift; break;;
+	esac
+done
+
+if [ -n "$term" ]
+then find_tag "$term" "$@"
+else generate_tags "$@"
+fi
