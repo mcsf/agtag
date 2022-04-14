@@ -25,7 +25,7 @@ find_tag() {
 		'((^export (default )?((function |class |const |interface )|{ *(\w+, )*))|(@typedef {[^}(]+} ))\K'"$tag"'\b' \
 		"$@"
 	ag -o --noheading --nobreak --php \
-		'^\s*(function |class )\K'"$tag"'\b' \
+		'^\s*(public |protected |private |static )*(function |class )\K'"$tag"'\b' \
 		"$@"
 }
 
