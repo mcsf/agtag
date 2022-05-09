@@ -15,7 +15,7 @@
 
 generate_tags() {
 	find_tag '\w+' "$@" \
-		| awk -F: 'BEGIN{OFS="\t"} {print $3, $1, $2}' \
+		| awk -F: 'BEGIN{OFS="\t"} {print $3, $1, $2 ";\""}' \
 		| sort
 }
 
