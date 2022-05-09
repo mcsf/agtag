@@ -30,7 +30,7 @@ find_tag() {
 }
 
 # shellcheck disable=2048 disable=2086
-if  ! args=$(getopt t: $*) ; then
+if ! args=$(getopt t: $*) ; then
 	echo "usage: $(basename $0) [path ...]"
 	echo "       $(basename $0) -f term [path ...]"
 	exit 2
