@@ -7,7 +7,7 @@
 #    $ agtag > tags
 #
 #    # Crawl the project for a single term
-#    $ agtag some_function_name
+#    $ agtag -t some_symbol_name
 #
 # `ag` is fed regular expressions aimed at extracting anything that should
 # constitute a "public" tags, such as JavaScript functions with the `export`
@@ -32,7 +32,7 @@ find_tag() {
 # shellcheck disable=2048 disable=2086
 if ! args=$(getopt t: $*) ; then
 	echo "usage: $(basename $0) [path ...]"
-	echo "       $(basename $0) -f term [path ...]"
+	echo "       $(basename $0) -t term [path ...]"
 	exit 2
 fi
 # shellcheck disable=2086
