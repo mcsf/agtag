@@ -1,59 +1,40 @@
 #!/bin/sh
 
+TARGET="$1"
+
 AG_FMT_OPTS=${AG_FMT_OPTS:=-o --noheading --nobreak}
 AG_JS_OPTS=${AG_JS_OPTS:=--js --ts}
 AG_PHP_OPTS=${AG_PHP_OPTS:=--php}
 
-# Use `ag` to generate tags (as in `ctags`) for a given project, or to look up
-# a specific tag.
-#
-#    # Generate a tags index
-#    $ agtag > tags
-#
-#    # Crawl the project for a single term
-#    $ agtag -t some_symbol_name
-#
-# `ag` is fed regular expressions aimed at extracting anything that should
-# constitute a "public" tags, such as JavaScript functions with the `export`
-# keyword, or PHP classes.
+JS_SINGLE_EXPORTS='^export (default )?(async )?(function( | *\* *)|class |const |interface )?\K\w+'
+JS_OBJECT_EXPORTS='^export {\s*\K(\w+,?\s+)*'
+JS_JSDOC_TYPEDEFS='@typedef ({[^}]+} )?\K\w+'
+JS_ALL="($JS_SINGLE_EXPORTS)|($JS_OBJECT_EXPORTS)|($JS_JSDOC_TYPEDEFS)"
 
-generate_tags() {
-	find_tag '\w+' "$@" \
-		| awk -F: 'BEGIN{OFS="\t"} {print $3, $1, $2 ";\""}' \
-		| sort
+PHP_ALL='^\s*(public |protected |private |static )*(function |class )\K\w+'
+
+find_all() {
+	# shellcheck disable=2086
+	ag $AG_FMT_OPTS $AG_JS_OPTS "$JS_ALL" "${TARGET:=.}"
+	# shellcheck disable=2086
+	ag $AG_FMT_OPTS $AG_PHP_OPTS "$PHP_ALL" "${TARGET:=.}"
 }
 
-find_tag() {
-	tag="$1"; shift
-	# shellcheck disable=2086
-	ag $AG_FMT_OPTS $AG_JS_OPTS \
-		'((^export (default )?(async )?((function( | *\* *)|class |const |interface )?|{ *(?:\w+ as )(\w+, )*))|(@typedef {[^}(]+} ))\K'"$tag"'\b' \
-		"$@"
-	# shellcheck disable=2086
-	ag $AG_FMT_OPTS $AG_PHP_OPTS \
-		'^\s*(public |protected |private |static )*(function |class )\K'"$tag"'\b' \
-		"$@"
+fix_js_obj_exports() {
+	awk -F: '{
+		split($3, parts, " ");
+		for (p in parts) {
+			sub(",", "", parts[p])
+			if (parts[p] != "as") print $1 ":" $2 ":" parts[p]
+		}
+	}'
 }
 
-# shellcheck disable=2048 disable=2086
-if ! args=$(getopt t: $*) ; then
-	echo "usage: $(basename $0) [path ...]"
-	echo "       $(basename $0) -t term [path ...]"
-	exit 2
-fi
-# shellcheck disable=2086
-set -- $args
-for i; do
-	case "$i" in
-		-t)
-			term="$2"; shift;
-			shift;;
-		--)
-			shift; break;;
-	esac
-done
+format_tags() {
+	awk -F: 'BEGIN{OFS="\t"} {print $3, $1, $2 ";\""}'
+}
 
-if [ -n "$term" ]
-then find_tag "$term" "$@"
-else generate_tags "$@"
-fi
+find_all \
+	| fix_js_obj_exports \
+	| format_tags \
+	| sort
