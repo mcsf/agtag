@@ -1,0 +1,11 @@
+<?php
+
+function hello_world() {
+	return null;
+}
+
+class Greeter {
+	public static function greet($name) {
+		echo "Hello, {$name}!";
+	}
+}

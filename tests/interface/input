@@ -1,0 +1,13 @@
+export interface Dog {
+	name: string;
+}
+
+/**
+ * @typedef Cat
+ *
+ * @property {string} name Name.
+ */
+
+/**
+ * @typedef {import('@playwright/test').FrameLocator} FrameLocator
+ */

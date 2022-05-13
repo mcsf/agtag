@@ -1,0 +1,5 @@
+__experimentalGetBlock	tests/export-object/input	4;"
+abc	tests/export-object/input	2;"
+def	tests/export-object/input	3;"
+getBlock	tests/export-object/input	4;"
+ghi	tests/export-object/input	3;"
