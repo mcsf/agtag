@@ -13,19 +13,20 @@ JS_ALL="($JS_SINGLE_EXPORTS)|($JS_OBJECT_EXPORTS)|($JS_JSDOC_TYPEDEFS)"
 
 PHP_ALL='^\s*(public |protected |private |static )*(function |class )\K\w+'
 
-find_all() {
+find_symbols() {
 	# shellcheck disable=2086
 	ag $AG_FMT_OPTS $AG_JS_OPTS "$JS_ALL" "${TARGET:=.}"
 	# shellcheck disable=2086
 	ag $AG_FMT_OPTS $AG_PHP_OPTS "$PHP_ALL" "${TARGET:=.}"
 }
 
+# Discard "as" and "default" in JS exports like { default as A, B as C }
 fix_js_obj_exports() {
 	awk -F: '{
-		split($3, parts, " ");
-		for (p in parts) {
-			sub(",", "", parts[p])
-			if (parts[p] != "as") print $1 ":" $2 ":" parts[p]
+		split($3, words, " ");
+		for (i in words) {
+			sub(",", "", words[i])
+			if (words[i] !~ /^(as|default)$/) print $1 ":" $2 ":" words[i]
 		}
 	}'
 }
@@ -34,7 +35,4 @@ format_tags() {
 	awk -F: 'BEGIN{OFS="\t"} {print $3, $1, $2 ";\""}'
 }
 
-find_all \
-	| fix_js_obj_exports \
-	| format_tags \
-	| sort
+find_symbols | fix_js_obj_exports | format_tags | sort

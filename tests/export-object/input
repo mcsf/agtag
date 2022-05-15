@@ -1,5 +1,7 @@
 export {
-	abc,
-	def as ghi,
+	default as A,
+	a_default_name as another_name,
+	B,
+	C as D,
 	getBlock as __experimentalGetBlock,
 };
