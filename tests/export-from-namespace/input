@@ -1,0 +1,5 @@
+namespace MyNamespace {
+    export function myFunction(args: Arguments) {
+		return 42;
+	}
+}
