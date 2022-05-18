@@ -1,8 +1,5 @@
 A	tests/export-object/input	2;"
 B	tests/export-object/input	4;"
-C	tests/export-object/input	5;"
 D	tests/export-object/input	5;"
 __experimentalGetBlock	tests/export-object/input	6;"
-a_default_name	tests/export-object/input	3;"
 another_name	tests/export-object/input	3;"
-getBlock	tests/export-object/input	6;"

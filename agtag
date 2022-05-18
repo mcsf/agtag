@@ -7,7 +7,7 @@ AG_JS_OPTS=${AG_JS_OPTS:=--js --ts}
 AG_PHP_OPTS=${AG_PHP_OPTS:=--php}
 
 JS_SINGLE_EXPORTS='^\s*export (default )?(async )?(function( | *\* *)|class |const |interface )?\K\w+'
-JS_OBJECT_EXPORTS='^\s*export {\s*\K(\w+,?\s+)*'
+JS_OBJECT_EXPORTS='^\s*export \K{\s*(\w+,?\s+)*}' # Intentionally capture the surrounding braces
 JS_JSDOC_TYPEDEFS='@typedef ({[^}]+} )?\K\w+'
 JS_ALL="($JS_SINGLE_EXPORTS)|($JS_OBJECT_EXPORTS)|($JS_JSDOC_TYPEDEFS)"
 
@@ -20,15 +20,23 @@ find_symbols() {
 	ag $AG_FMT_OPTS $AG_PHP_OPTS "$PHP_ALL" "${TARGET:=.}"
 }
 
-# Discard "as" and "default" in JS exports like { default as A, B as C }
+# Intercept exports like "{ A as B, C }" and, for each export, produce a tag
+# only for its new name, i.e. "B" and "C".
 fix_js_obj_exports() {
-	awk -F: '{
-		split($3, words, " ");
-		for (i in words) {
-			sub(",", "", words[i])
-			if (words[i] !~ /^(as|default)$/) print $1 ":" $2 ":" words[i]
+	awk -F: '
+		$3 ~ /{/ { on = 1 }
+		! on
+		on {
+			sub("{", "", $3)
+			split($3, exports, /\s*,\s*/)
+			for (i in exports) {
+				n = split(exports[i], words, /\s+/)
+				if (words[n] && words[n] != "}")
+					print $1 ":" $2 ":" words[n]
+			}
 		}
-	}'
+		$3 ~ /}/ { on = 0 }
+	'
 }
 
 format_tags() {
