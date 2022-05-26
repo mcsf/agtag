@@ -1,0 +1,4 @@
+__unstableStripHTML	tests/export-object-multiple/input	3;"
+isEmpty	tests/export-object-multiple/input	4;"
+replaceTag	tests/export-object-multiple/input	1;"
+wrap	tests/export-object-multiple/input	2;"

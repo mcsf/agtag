@@ -35,8 +35,11 @@ fix_js_obj_exports() {
 			sub("{", "", $3)
 			split($3, exports, /\s*,\s*/)
 			for (i in exports) {
+				sub("}", "", exports[i])
+				sub(/^\s*/, "", exports[i])
+				sub(/\s*$/, "", exports[i])
 				n = split(exports[i], words, /\s+/)
-				if (words[n] && words[n] != "}")
+				if (words[n])
 					print $1 ":" $2 ":" words[n]
 			}
 		}
