@@ -2,9 +2,9 @@
 
 TARGET="$1"
 
-AG_FMT_OPTS=${AG_FMT_OPTS:=-o --noheading --nobreak}
-AG_JS_OPTS=${AG_JS_OPTS:=--js --ts}
-AG_PHP_OPTS=${AG_PHP_OPTS:=--php}
+: "${AG_FMT_OPTS:=-o --noheading --nobreak}"
+: "${AG_JS_OPTS:=--js --ts}"
+: "${AG_PHP_OPTS:=--php}"
 
 # export default forwardRef( Component )
 JS_WRAPPED_EXPORT='^export default \w+\( \K\w+'
