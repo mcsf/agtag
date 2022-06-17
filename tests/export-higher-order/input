@@ -1,3 +1,7 @@
 const Component = () => null;
 
 export default forwardRef( Component );
+
+export default withFilters( 'editor.PostTaxonomyType' )(
+	HierarchicalTermSelector
+);
