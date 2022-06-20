@@ -14,7 +14,9 @@ JS_SINGLE_EXPORTS='^export (default )?(async )?(function( | *\* *)|class |const 
 JS_OBJECT_EXPORTS='^export \K{\s*(\w+,?\s+)*}' # Intentionally capture the surrounding braces
 # /** @typedef {import(...).Props} MyProps
 JS_JSDOC_TYPEDEFS='@typedef ({[^}]+} )?\K\w+'
-JS_ALL="($JS_WRAPPED_EXPORT)|($JS_SINGLE_EXPORTS)|($JS_OBJECT_EXPORTS)|($JS_JSDOC_TYPEDEFS)"
+# applyFilters( 'blockEditor.myFilter'
+JS_WP_APPLY_FILTERS='applyFilters\(\s*'\''\K[^'\''']+''
+JS_ALL="($JS_WRAPPED_EXPORT)|($JS_SINGLE_EXPORTS)|($JS_OBJECT_EXPORTS)|($JS_JSDOC_TYPEDEFS)|($JS_WP_APPLY_FILTERS)"
 
 PHP_ALL='^\s*(public |protected |private |static )*(function |class )\K\w+'
 
