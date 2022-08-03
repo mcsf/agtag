@@ -1,1 +1,2 @@
-blockEditor.__unstableCanInsertBlockType	tests/wp-js-applyFilters/input	14;"
+blockEditor.__unstableCanInsertBlockType	tests/wp-applyFilters/input	14;"
+default_template_types	tests/wp-applyFilters/input	33;"
