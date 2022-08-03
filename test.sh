@@ -1,8 +1,16 @@
 #!/bin/sh
 
-AGTAG=${AGTAG:=./agtag}
+: "${AGTAG:=./agtag}"
+
+errors=0
 
 for t in tests/*
 do
-	$AGTAG "$t/input" | diff - "$t/expected" || echo "Failed: $t"
+	if ! $AGTAG "$t/input" | diff - "$t/expected"
+	then
+		echo "Failed: $t"
+		: $((errors += 1))
+	fi
 done
+
+exit "$errors"
