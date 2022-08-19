@@ -12,3 +12,18 @@ export default withSelect( ( select ) => {
 		clientIds: getSelectedBlockClientIds(),
 	};
 } )( ReusableBlocksMenuItems );
+
+export default compose( [
+	withSelect( ( select, { clientId } ) => ( {
+		wasBlockJustInserted: select( blockEditorStore ).wasBlockJustInserted(
+			clientId,
+			'inserter_menu'
+		),
+	} ) ),
+	withDispatch( ( dispatch ) => {
+		const { createErrorNotice } = dispatch( noticesStore );
+
+		return { createErrorNotice };
+	} ),
+	withPreferredColorScheme,
+] )( VideoEdit );

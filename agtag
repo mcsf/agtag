@@ -6,12 +6,12 @@ TARGET="$1"
 : "${AG_JS_OPTS:=--js --ts}"
 : "${AG_PHP_OPTS:=--php}"
 
-# export default withFilters( 'foo' )( Component )
-JS_HIGHER_ORDER='^export default withFilters\([^)]+\)\(\s*\K\w+'
-# export default withSelect( ... )( Component )
-JS_HIGHER_ORDER_FN='^export default withSelect\(.*\s*(.*\s+)*} \)\( \K\w+'
 # export default forwardRef( Component )
 JS_WRAPPED_EXPORT='^export default \w+\( \K\w+'
+# export default withFilters( 'foo' )( Component )
+JS_WRAPPED_EXPORT_CURRY_SHORT='^export default \w+\([^)]+\)\(\s*\K\w+'
+# export default withSelect( ... )( Component )
+JS_WRAPPED_EXPORT_CURRY_LONG='^export default \w+\(.*\s*(.*\s+)*?(}|]) \)\( \K\w+'
 # export async function *foo() {}
 JS_SINGLE_EXPORTS='^export (default )?(async )?(function( | *\* *)|class |const |interface )?\K\w+'
 # export { foo as default, bar }
@@ -20,7 +20,7 @@ JS_OBJECT_EXPORTS='^(export |module\.exports = )\K{\s*(\w+,?\s+)*}' # Intentiona
 JS_JSDOC_TYPEDEFS='@typedef ({[^}]+} )?\K\w+'
 # applyFilters( 'blockEditor.myFilter'
 JS_WP_APPLY_FILTERS='\bapplyFilters\(\s*'\''\K[^'\''']+''
-JS_ALL="($JS_HIGHER_ORDER|$JS_HIGHER_ORDER_FN|$JS_WRAPPED_EXPORT)|($JS_SINGLE_EXPORTS)|($JS_OBJECT_EXPORTS)|($JS_JSDOC_TYPEDEFS)|($JS_WP_APPLY_FILTERS)"
+JS_ALL="($JS_WRAPPED_EXPORT)|($JS_WRAPPED_EXPORT_CURRY_SHORT)|($JS_WRAPPED_EXPORT_CURRY_LONG)|($JS_SINGLE_EXPORTS)|($JS_OBJECT_EXPORTS)|($JS_JSDOC_TYPEDEFS)|($JS_WP_APPLY_FILTERS)"
 
 # apply_filters( 'default_template_types'
 PHP_WP_APPLY_FILTERS='\bapply_filters\(\s*'\''\K[^'\''']+''
