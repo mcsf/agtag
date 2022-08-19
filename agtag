@@ -11,7 +11,7 @@ JS_WRAPPED_EXPORT='^export default \w+\( \K\w+'
 # export async function *foo() {}
 JS_SINGLE_EXPORTS='^export (default )?(async )?(function( | *\* *)|class |const |interface )?\K\w+'
 # export { foo as default, bar }
-JS_OBJECT_EXPORTS='^export \K{\s*(\w+,?\s+)*}' # Intentionally capture the surrounding braces
+JS_OBJECT_EXPORTS='^(export |module\.exports = )\K{\s*(\w+,?\s+)*}' # Intentionally capture the surrounding braces
 # /** @typedef {import(...).Props} MyProps
 JS_JSDOC_TYPEDEFS='@typedef ({[^}]+} )?\K\w+'
 # applyFilters( 'blockEditor.myFilter'
