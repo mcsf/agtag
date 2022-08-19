@@ -5,3 +5,10 @@ export default forwardRef( Component );
 export default withFilters( 'editor.PostTaxonomyType' )(
 	HierarchicalTermSelector
 );
+
+export default withSelect( ( select ) => {
+	const { getSelectedBlockClientIds } = select( blockEditorStore );
+	return {
+		clientIds: getSelectedBlockClientIds(),
+	};
+} )( ReusableBlocksMenuItems );
