@@ -28,6 +28,6 @@ return applyFilters(
 );
 
 
-function default_template_types( ... ) {
+function my_default_template_types( ... ) {
 }
-return apply_filters( 'default_template_types', $default_template_types );
+return apply_filters( 'default_template_types', $my_default_template_types );
