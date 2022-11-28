@@ -28,4 +28,4 @@ $ agtag > tags
 
 * **I don't use `ag`; can I use `rg` / `ugrep` / `ack`?**
 
-This script has only been used with `ag` and it assumes a series of `ag`-specific options, but you should be able to adapt it by overwriting the existing environment variables (`AG_FMT_OPTS`, `AG_JS_OPTS`, `AG_PHP_OPTS`). Meanwhile, we'll need a more suitable name than **ag**tag. ;-)
+This script has only been used with `ag` and it assumes a series of `ag`-specific options, but you should be able to adapt it by overwriting the existing environment variables (`AG_FMT_OPTS`, `AG_JS_OPTS`, `AG_PHP_OPTS`). Meanwhile, we'll need a more suitable name than **ag** tag. ;-)
