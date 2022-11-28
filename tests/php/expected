@@ -1,3 +1,4 @@
-Greeter	tests/php/input	7;"
-greet	tests/php/input	8;"
-hello_world	tests/php/input	3;"
+Greeter	tests/php/input	9;"
+WP_DEBUG	tests/php/input	3;"
+greet	tests/php/input	10;"
+hello_world	tests/php/input	5;"

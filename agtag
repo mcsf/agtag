@@ -24,12 +24,14 @@ JS_WP_APPLY_FILTERS='\bapplyFilters\(\s*'\''\K[^'\''']+''
 JS_WP_DO_ACTION='\bdoAction\(\s*'\''\K[^'\''']+''
 JS_ALL="($JS_WRAPPED_EXPORT)|($JS_WRAPPED_EXPORT_CURRY_SHORT)|($JS_WRAPPED_EXPORT_CURRY_LONG)|($JS_SINGLE_EXPORTS)|($JS_OBJECT_EXPORTS)|($JS_JSDOC_TYPEDEFS)|($JS_WP_APPLY_FILTERS)|($JS_WP_DO_ACTION)"
 
+# define( 'FOO', 42 )
+PHP_DEFINE='\bdefine\(\s*'\''\K[^'\''']+''
 # apply_filters( 'default_template_types'
 PHP_WP_APPLY_FILTERS='\bapply_filters\(\s*'\''\K[^'\''']+''
 PHP_DO_ACTION='\bdo_action\(\s*'\''\K[^'\''']+''
 # private function foo() {}
 PHP_DEFS='^\s*(public |protected |private |static |abstract |final |readonly )*(function |class )\K\w+'
-PHP_ALL="($PHP_WP_APPLY_FILTERS|$PHP_DO_ACTION|$PHP_DEFS)"
+PHP_ALL="($PHP_WP_APPLY_FILTERS|$PHP_DEFINE|$PHP_DO_ACTION|$PHP_DEFS)"
 
 find_symbols() {
 	# shellcheck disable=2086
