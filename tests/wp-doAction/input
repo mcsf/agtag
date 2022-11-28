@@ -1,0 +1,13 @@
+/*
+ * JS
+ */
+return doAction(
+	'plugins.pluginRegistered',
+	settings,
+	name
+);
+
+/*
+ * PHP
+ */
+do_action( 'render_block_core_template_part_post', $template_part_id, $attributes, $template_part_post, $content );
