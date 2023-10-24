@@ -1,5 +1,10 @@
 #!/bin/sh
 
+# FIXME: addFilter, etc., not collected
+
+# TODO: Deprioritise "import" @typedef matches as local, with "proper" @typedef matches as global
+# TODO: Use line regex instead of line number as tag location
+
 TARGET="$1"
 
 : "${AG:=ag}"
