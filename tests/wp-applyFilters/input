@@ -18,6 +18,8 @@ return applyFilters(
 	}
 );
 
+withFilters( 'editor.matchMe' )( DontMatchMe );
+
 /*
  * PHP
  */

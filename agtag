@@ -26,9 +26,11 @@ JS_OBJECT_EXPORTS='^(export (const )?|module\.exports = )\K{\s*(\w+,?\s+)*}' # I
 JS_JSDOC_TYPEDEFS='@typedef ({[^}]+} )?\K\w+'
 # applyFilters( 'blockEditor.myFilter'
 JS_WP_APPLY_FILTERS='\bapplyFilters\(\s*'\''\K[^'\''']+''
+# withFilters( 'foo'
+JS_WITH_FILTERS='\bwithFilters\(\s*'\''\K[^'\''']+''
 # doAction( 'blockEditor.myAction'
 JS_WP_DO_ACTION='\bdoAction\(\s*'\''\K[^'\''']+''
-JS_ALL="($JS_WRAPPED_EXPORT)|($JS_WRAPPED_EXPORT_CURRY_SHORT)|($JS_WRAPPED_EXPORT_CURRY_LONG)|($JS_SINGLE_EXPORTS)|($JS_OBJECT_EXPORTS)|($JS_JSDOC_TYPEDEFS)|($JS_WP_APPLY_FILTERS)|($JS_WP_DO_ACTION)"
+JS_ALL="($JS_WRAPPED_EXPORT)|($JS_WRAPPED_EXPORT_CURRY_SHORT)|($JS_WRAPPED_EXPORT_CURRY_LONG)|($JS_SINGLE_EXPORTS)|($JS_OBJECT_EXPORTS)|($JS_JSDOC_TYPEDEFS)|($JS_WP_APPLY_FILTERS)|($JS_WITH_FILTERS)|($JS_WP_DO_ACTION)"
 
 # define( 'FOO', 42 )
 PHP_DEFINE='\bdefine\(\s*'\''\K[^'\''']+''
