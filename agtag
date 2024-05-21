@@ -5,7 +5,7 @@
 # TODO: Deprioritise "import" @typedef matches as local, with "proper" @typedef matches as global
 # TODO: Use line regex instead of line number as tag location
 
-TARGET="$1"
+TARGET="${1:-.}"
 
 : "${AG:=ag}"
 : "${AG_FMT_OPTS:=-o --noheading --nobreak}"
@@ -43,9 +43,9 @@ PHP_ALL="($PHP_WP_APPLY_FILTERS|$PHP_DEFINE|$PHP_DO_ACTION|$PHP_DEFS)"
 
 find_symbols() {
 	# shellcheck disable=2086
-	$AG $AG_FMT_OPTS $AG_JS_OPTS "$JS_ALL" "${TARGET:=.}"
+	$AG $AG_FMT_OPTS $AG_JS_OPTS "$JS_ALL" "$TARGET"
 	# shellcheck disable=2086
-	$AG $AG_FMT_OPTS $AG_PHP_OPTS "$PHP_ALL" "${TARGET:=.}"
+	$AG $AG_FMT_OPTS $AG_PHP_OPTS "$PHP_ALL" "$TARGET"
 }
 
 # Intercept exports like "{ A as B, C }" and, for each export, produce a tag
