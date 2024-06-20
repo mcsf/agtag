@@ -11,3 +11,7 @@ export interface Dog {
 /**
  * @typedef {import('@playwright/test').FrameLocator} FrameLocator
  */
+
+export type Action< Item extends AnyItem > =
+	| ActionModal< Item >
+	| ActionButton< Item >;

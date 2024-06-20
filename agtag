@@ -19,7 +19,7 @@ JS_WRAPPED_EXPORT_CURRY_SHORT='^export default \w+\([^)]+\)\(\s*\K\w+'
 # export default withSelect( ... )( Component )
 JS_WRAPPED_EXPORT_CURRY_LONG='^export default \w+\(.*\s*(.*\s+)*?(}|]) \)\( \K\w+'
 # export async function *foo() {}
-JS_SINGLE_EXPORTS='^export (default )?(async )?(function( | *\* *)|class |const |interface )?(?!(function|class|const|interface)\b)\K\w+'
+JS_SINGLE_EXPORTS='^export (default )?(async )?(function( | *\* *)|class |const |interface |type )?(?!(function|class|const|interface)\b)\K\w+'
 # export { foo as default, bar }
 JS_OBJECT_EXPORTS='^(export (const )?|module\.exports = )\K{\s*(\w+,?\s+)*}' # Intentionally capture the surrounding braces
 # /** @typedef {import(...).Props} MyProps
