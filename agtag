@@ -36,10 +36,12 @@ JS_ALL="($JS_WRAPPED_EXPORT)|($JS_WRAPPED_EXPORT_CURRY_SHORT)|($JS_WRAPPED_EXPOR
 PHP_DEFINE='\bdefine\(\s*'\''\K[^'\''']+''
 # apply_filters( 'default_template_types'
 PHP_WP_APPLY_FILTERS='\bapply_filters\(\s*'\''\K[^'\''']+''
+PHP_WP_APPLY_FILTERS_REF_ARRAY='\bapply_filters_ref_array\(\s*'\''\K[^'\''']+''
 PHP_DO_ACTION='\bdo_action\(\s*'\''\K[^'\''']+''
+PHP_DO_ACTION_REF_ARRAY='\bdo_action_ref_array\(\s*'\''\K[^'\''']+''
 # private function foo() {}
 PHP_DEFS='^\s*(public |protected |private |static |abstract |final |readonly )*(function |class )\K\w+'
-PHP_ALL="($PHP_WP_APPLY_FILTERS|$PHP_DEFINE|$PHP_DO_ACTION|$PHP_DEFS)"
+PHP_ALL="($PHP_WP_APPLY_FILTERS|$PHP_WP_APPLY_FILTERS_REF_ARRAY|$PHP_DEFINE|$PHP_DO_ACTION|$PHP_DO_ACTION_REF_ARRAY|$PHP_DEFS)"
 
 find_symbols() {
 	# shellcheck disable=2086
