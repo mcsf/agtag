@@ -40,8 +40,9 @@ PHP_WP_APPLY_FILTERS_REF_ARRAY='\bapply_filters_ref_array\(\s*'\''\K[^'\''']+''
 PHP_DO_ACTION='\bdo_action\(\s*'\''\K[^'\''']+''
 PHP_DO_ACTION_REF_ARRAY='\bdo_action_ref_array\(\s*'\''\K[^'\''']+''
 # private function foo() {}
-PHP_ALL="($PHP_WP_APPLY_FILTERS|$PHP_WP_APPLY_FILTERS_REF_ARRAY|$PHP_DEFINE|$PHP_DO_ACTION|$PHP_DO_ACTION_REF_ARRAY|$PHP_DEFS)"
 PHP_DEFS='^\s*(public |protected |private |static |abstract |final |readonly )*(function |class |const )\K\w+'
+PHP_NAMESPACE='^\s*namespace\s+\K[A-Za-z\\_-]+'
+PHP_ALL="($PHP_WP_APPLY_FILTERS|$PHP_WP_APPLY_FILTERS_REF_ARRAY|$PHP_DEFINE|$PHP_DO_ACTION|$PHP_DO_ACTION_REF_ARRAY|$PHP_DEFS|$PHP_NAMESPACE)"
 
 find_symbols() {
 	# shellcheck disable=2086
@@ -72,8 +73,20 @@ fix_js_obj_exports() {
 	'
 }
 
+# Vim doesn't like tags with backslashes. I like Vim, so I humour it.
+# For tag containing backslashes, keep it but add a duplicate entry that uses
+# forward slashes instead.
+fix_backslashes() {
+	awk '
+		{
+			print
+			if (gsub(/\\/, "/")) print
+		}
+	'
+}
+
 format_tags() {
 	awk -F: 'BEGIN{OFS="\t"} {print $3, $1, $2 ";\""}'
 }
 
-find_symbols | fix_js_obj_exports | format_tags | sort
+find_symbols | fix_js_obj_exports | fix_backslashes | format_tags | sort

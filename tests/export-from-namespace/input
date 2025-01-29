@@ -1,5 +1,12 @@
-namespace MyNamespace {
+// TS namespaces
+
+namespace FooNamespace {
     export function myFunction(args: Arguments) {
 		return 42;
 	}
 }
+
+// PHP namespaces
+
+namespace My\Namespace;
+class Foo {}

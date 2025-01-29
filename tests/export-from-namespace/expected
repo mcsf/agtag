@@ -1,0 +1,5 @@
+Foo	tests/export-from-namespace/input	12;"
+FooNamespace	tests/export-from-namespace/input	3;"
+My/Namespace	tests/export-from-namespace/input	11;"
+My\Namespace	tests/export-from-namespace/input	11;"
+myFunction	tests/export-from-namespace/input	4;"
