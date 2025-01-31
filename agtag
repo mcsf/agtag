@@ -78,7 +78,7 @@ fix_js_obj_exports() {
 # forward slashes instead.
 fix_backslashes() {
 	awk '
-		{
+		/./ {
 			print
 			if (gsub(/\\/, "/")) print
 		}
