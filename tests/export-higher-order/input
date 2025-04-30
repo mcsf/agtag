@@ -1,6 +1,10 @@
+// FIXME this line is caught by the tests because these are run with no context
+// on whether JS or PHP rules should apply
 const Component = () => null;
 
 export default forwardRef( Component );
+
+export default createLink( forwardRef( RouterLinkMenuItem ) );
 
 export default withFilters( 'editor.PostTaxonomyType' )(
 	HierarchicalTermSelector

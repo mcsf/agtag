@@ -13,7 +13,7 @@ TARGET="${1:-.}"
 : "${AG_PHP_OPTS:=--php}"
 
 # export default forwardRef( Component )
-JS_WRAPPED_EXPORT='^export default \w+\( \K\w+'
+JS_WRAPPED_EXPORT='^export default (\w+\( )+\K\w+'
 # export default withFilters( 'foo' )( Component )
 JS_WRAPPED_EXPORT_CURRY_SHORT='^export default \w+\([^)]+\)\(\s*\K\w+'
 # export default withSelect( ... )( Component )
