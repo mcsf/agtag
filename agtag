@@ -89,4 +89,7 @@ format_tags() {
 	awk -F: 'BEGIN{OFS="\t"} {print $3, $1, $2 ";\""}'
 }
 
+# Avoid locale-related surprises, e.g. sort order.
+LC_ALL=C
+
 find_symbols | fix_js_obj_exports | fix_backslashes | format_tags | sort
